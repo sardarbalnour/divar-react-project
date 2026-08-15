@@ -10,7 +10,9 @@ function AuthPage() {
 
   return (
     <div>
-      {step === 1 && <SendOtpForm />}
+      {step === 1 && (
+        <SendOtpForm setStep={setStep} mobile={mobile} setMobile={setMobile} />
+      )}
       {step === 2 && <CheckOtpForm />}
     </div>
   );
