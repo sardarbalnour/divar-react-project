@@ -1,8 +1,34 @@
+import { checkOtp } from "../../services/auth";
 
-function CheckOtpForm() {
+function CheckOtpForm({ code, setCode, mobile, setStep }) {
+  const submitHandler = async (event) => {
+    event.preventDefault();
+
+    if (code.length !== 5) return;
+
+    const { response, error } = await checkOtp(mobile, code);
+    
+    if (response) console.log(response);
+
+    if (error) console.log(error.response.data.message);
+  };
+
   return (
-    <div>CheckOtpForm</div>
-  )
+    <form onSubmit={submitHandler}>
+      <p>تأیید کد پیامک شده</p>
+      <span>کد پیامک شده به شماره «{mobile}» را وارد کنید.</span>
+      <label htmlFor="input">کد تأیید را وارد کنید</label>
+      <input
+        type="text"
+        id="input"
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+        placeholder="کد تأیید"
+      />
+      <button type="submit">ورود</button>
+      <button onClick={() => setStep(1)}>تغییر شماره موبایل</button>
+    </form>
+  );
 }
 
-export default CheckOtpForm
+export default CheckOtpForm;
