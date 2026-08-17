@@ -1,6 +1,7 @@
 import axios from "axios";
 
-import { getCookie } from "../utils/cookie";
+import { getCookie, setCookie } from "../utils/cookie";
+import { getNewToken } from "../services/token";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -19,6 +20,25 @@ api.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
+  }
+);
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    console.log(error.response.status);
+    const originalRequest = error.config;
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      const res = await getNewToken();
+      if (!res) return;
+      setCookie(res);
+
+      return api(originalRequest);
+    }
   }
 );
 
