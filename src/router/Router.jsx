@@ -9,6 +9,8 @@ import PageNotFound from "../pages/404";
 
 import { getProfile } from "../services/user";
 
+import Loader from "../components/modules/Loader";
+
 function Router() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["profile"],
@@ -16,7 +18,7 @@ function Router() {
   });
   console.log({ data, isLoading, error });
 
-  if(isLoading) return <h1>...Loading</h1>
+  if (isLoading) return <Loader />;
 
   return (
     <Routes>
