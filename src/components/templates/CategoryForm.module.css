@@ -37,6 +37,11 @@
   cursor: pointer;
 }
 
+.form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .form p {
   background-color: #a62626;
   color: #fff;
