@@ -1,0 +1,41 @@
+.list {
+  display: flex;
+  margin: 20px 0;
+  padding: 15px;
+  border: 2px solid #eaeaea;
+  border-radius: 5px;
+}
+
+.list h5 {
+  margin-right: 10px;
+  font-size: 0.9rem;
+  width: 140px;
+}
+
+.list p {
+  width: 80%;
+  margin-left: 40px;
+  text-align: left;
+}
+
+.list button {
+  padding: 3px 7px;
+  border: none;
+  background-color: #a62626;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.list button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.deleting {
+  background-color: #a62626;
+  color: #fff;
+  margin-bottom: 20px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+}

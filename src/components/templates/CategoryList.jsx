@@ -4,6 +4,8 @@ import { deleteCategory, getCategory } from "../../services/admin";
 
 import Loader from "../modules/Loader";
 
+import styles from "./CategoryList.module.css";
+
 function CategoryList() {
   const queryClient = useQueryClient();
 
@@ -25,16 +27,19 @@ function CategoryList() {
         <Loader />
       ) : (
         data.data.map((i) => (
-          <div key={i._id}>
+          <div className={styles.list} key={i._id}>
             <img src={`${i.icon}.svg`} />
             <h5>{i.name}</h5>
             <p>slug: {i.slug}</p>
             <button onClick={() => mutate(i._id)} disabled={isDeleting}>
-              delete
+              حذف
             </button>
           </div>
         ))
       )}
+      <div className={isDeleting ? styles.deleting : null}>
+        {isDeleting && <p>در حال حذف دسته بندی مورد نظر...</p>}
+      </div>
     </div>
   );
 }
