@@ -1,8 +1,11 @@
+import AddPost from "../components/templates/AddPost";
 
 function DashboardPage() {
   return (
-    <div>DashboardPage</div>
-  )
+    <div>
+      <AddPost />
+    </div>
+  );
 }
 
-export default DashboardPage
+export default DashboardPage;
