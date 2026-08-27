@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 import { getCategory } from "../../services/admin";
+import { getCookie } from "../../utils/cookie";
 
 import styles from "./AddPost.module.css";
 
@@ -12,7 +14,7 @@ function AddPost() {
     amount: null,
     city: "",
     category: "",
-    image: null,
+    images: null,
   });
 
   const { data } = useQuery({
@@ -31,7 +33,24 @@ function AddPost() {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    console.log(form);
+    const formData = new FormData();
+    for (let i in form) {
+      formData.append(i, form[i]);
+    }
+
+    const token = getCookie("accessToken");
+
+    axios
+      .post(`${import.meta.env.VITE_BASE_URL}post/create`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `bearer ${token}`,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err.message));
+
+    console.log(formData);
   };
 
   return (
@@ -49,7 +68,7 @@ function AddPost() {
       <textarea name="content" id="content" />
 
       <label htmlFor="amount">قیمت</label>
-      <input type="text" name="amount" id="amount" />
+      <input type="number" name="amount" id="amount" />
 
       <label htmlFor="city">شهر</label>
       <input type="text" name="city" id="city" />
@@ -63,8 +82,8 @@ function AddPost() {
         ))}
       </select>
 
-      <label htmlFor="image">عکس</label>
-      <input type="file" name="image" id="image" />
+      <label htmlFor="images">عکس</label>
+      <input type="file" name="images" id="images" />
 
       <button type="submit">ایجاد</button>
     </form>
