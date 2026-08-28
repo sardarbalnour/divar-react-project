@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 import { getCategory } from "../../services/admin";
 import { getCookie } from "../../utils/cookie";
@@ -47,8 +48,9 @@ function AddPost() {
           Authorization: `bearer ${token}`,
         },
       })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err.message));
+      .then((res) => toast.success(res.data.message))
+      // eslint-disable-next-line no-unused-vars
+      .catch((err) => toast.error("مشکلی پیش آمده است !"));
 
     console.log(formData);
   };
