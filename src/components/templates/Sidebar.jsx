@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getCategory } from "../../services/admin";
 
+import styles from "./Sidebar.module.css";
+
 function Sidebar() {
   const { data } = useQuery({
     queryKey: ["get-categories"],
@@ -10,7 +12,7 @@ function Sidebar() {
   console.log(data);
 
   return (
-    <div>
+    <div className={styles.sidebar}>
       <h4>دسته بندی</h4>
       <ul>
         {data?.data.map((i) => (
