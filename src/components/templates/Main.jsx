@@ -1,5 +1,5 @@
 
-function Main() {
+function Main({posts}) {
   return (
     <div>Main</div>
   )
